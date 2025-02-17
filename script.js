@@ -7,7 +7,7 @@ const songsList = [
     },
     {
         name: "محمد عبده",
-        artist: "ندري أحبك ولا ارضى",
+        artist: "تدري أحبك ولا ارضى",
         src: "assets/2.mp3",
         cover: "assets/2.jpg"
     },
@@ -41,6 +41,8 @@ const playBtn = document.getElementById('play');
 const prevBtn = document.getElementById('prev');
 const nextBtn = document.getElementById('next');
 const prog = document.querySelector('.progress-bar');
+const volumeUpBtn = document.getElementById('volumeUp');
+const volumeDownBtn = document.getElementById('volumeDown');
 
 let song = new Audio();
 let currentSong = 0;
@@ -54,6 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
     nextBtn.addEventListener('click', nextSong);
     playBtn.addEventListener('click', togglePlayPause);
     prog.addEventListener('click', seek);
+    volumeUpBtn.addEventListener('click', increaseVolume);
+    volumeDownBtn.addEventListener('click', decreaseVolume);
 });
 
 function loadSong(index) {
@@ -116,4 +120,16 @@ function playMusic() {
 function seek(e) {
     const pos = (e.offsetX / prog.clientWidth) * song.duration;
     song.currentTime = pos;
+}
+
+function increaseVolume() {
+    if (song.volume < 1.0) {
+        song.volume = Math.min(1, song.volume + 0.1);
+    }
+}
+
+function decreaseVolume() {
+    if (song.volume > 0.0) {
+        song.volume = Math.max(0, song.volume - 0.1);
+    }
 }
